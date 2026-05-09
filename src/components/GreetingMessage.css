@@ -1,0 +1,84 @@
+.greeting-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 20px;
+  z-index: 10;
+  position: relative;
+}
+
+.greeting-card {
+  max-width: 600px;
+  width: 100%;
+  padding: 48px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.greeting-card h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.greeting-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.love-signoff {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--primary);
+  margin-top: 16px;
+}
+
+.next-button {
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-main);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+
+.next-button:hover {
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .greeting-card {
+    padding: 24px;
+    gap: 20px;
+  }
+  
+  .greeting-card h1 {
+    font-size: 2.2rem;
+  }
+  
+  .greeting-content {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .love-signoff {
+    font-size: 1.1rem;
+  }
+  
+  .next-button {
+    width: 100%;
+    justify-content: center;
+  }
+}

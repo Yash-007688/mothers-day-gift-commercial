@@ -1,0 +1,114 @@
+.rate-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  z-index: 10;
+  position: relative;
+  width: 100%;
+}
+
+.rate-card {
+  max-width: 600px;
+  width: 100%;
+  padding: 48px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.rate-card h2 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.rate-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-main);
+  margin-bottom: 24px;
+}
+
+.stars-container {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.star-button {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.star-button:hover {
+  background: var(--primary-glow);
+}
+
+.star-number {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.infinity-love {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 0;
+}
+
+.beating-heart {
+  animation: pulse 1s infinite;
+}
+
+.infinity-text {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary);
+  margin-top: 16px;
+}
+
+.final-message {
+  font-size: 1.2rem;
+  color: var(--text-main);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .rate-card {
+    padding: 24px;
+    gap: 16px;
+  }
+
+  .rate-card h2 {
+    font-size: 2rem;
+  }
+
+  .stars-container {
+    gap: 8px;
+  }
+
+  .star-button {
+    padding: 12px;
+  }
+
+  .star-number {
+    font-size: 1.2rem;
+  }
+
+  .infinity-text {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+}

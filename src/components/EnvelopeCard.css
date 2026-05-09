@@ -1,0 +1,66 @@
+.envelope-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  z-index: 10;
+  position: relative;
+}
+
+.envelope {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 300px;
+  height: 200px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.envelope:hover {
+  box-shadow: 0 12px 48px 0 var(--primary-glow);
+}
+
+.envelope-icon {
+  margin-bottom: 8px;
+}
+
+.envelope h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.envelope p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.envelope-glow {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: var(--primary);
+  filter: blur(80px);
+  opacity: 0.2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .envelope {
+    width: 260px;
+    height: 180px;
+  }
+
+  .envelope h2 {
+    font-size: 1.6rem;
+  }
+}
