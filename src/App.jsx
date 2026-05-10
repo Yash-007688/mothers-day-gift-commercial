@@ -21,15 +21,8 @@ function App() {
 
   useEffect(() => {
     applyTheme();
-    
-    // Auto-Play Logic
-    if (settings.isAutoPlay && stage === 'envelope') {
-      const timer = setTimeout(() => {
-        handleOpenEnvelope();
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [stage]);
+    // Removed automatic envelope opening from here
+  }, []);
 
   const toggleMusic = () => {
     if (isPlaying) {
@@ -100,7 +93,7 @@ function App() {
         {settings.isAutoPlay && (
           <div className="auto-play-indicator">
             <div className="pulse-dot"></div>
-            <span>Auto-Play Mode</span>
+            <span>Auto-Play Mode Active</span>
           </div>
         )}
 

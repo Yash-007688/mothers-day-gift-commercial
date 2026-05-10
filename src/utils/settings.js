@@ -1,7 +1,7 @@
 const DEFAULT_SETTINGS = {
   isAutoPlay: true,
   songUrl: "/maa_song.mp3",
-  songName: "Maa - Taare Zameen Par", // New field
+  songName: "Maa - Taare Zameen Par",
   envelopeText: "For Mom",
   envelopeHint: "Tap to open",
   greetingTitle: "Happy Mother's Day!",
@@ -29,10 +29,9 @@ export const getSettings = () => {
   if (saved) {
     try {
       const parsed = JSON.parse(saved);
-      // Force update if it's the old pixabay link
-      if (parsed.songUrl && parsed.songUrl.includes("pixabay.com")) {
-        parsed.songUrl = DEFAULT_SETTINGS.songUrl;
-        parsed.songName = DEFAULT_SETTINGS.songName;
+      // Force update to the latest Maa song and full 6 reasons for the demo
+      if (parsed.reasons && parsed.reasons.length < 6) {
+        return DEFAULT_SETTINGS;
       }
       return { 
         ...DEFAULT_SETTINGS, 
@@ -40,7 +39,6 @@ export const getSettings = () => {
         colors: { ...DEFAULT_SETTINGS.colors, ...(parsed.colors || {}) } 
       };
     } catch (e) {
-      console.error("Failed to parse settings:", e);
       return DEFAULT_SETTINGS;
     }
   }
