@@ -1,5 +1,6 @@
 const DEFAULT_SETTINGS = {
-  songUrl: "https://cdn.pixabay.com/audio/2022/10/16/audio_2276537f00.mp3",
+  isAutoPlay: true,
+  songUrl: "/maa_song.mp3", // Use locally hosted song
   envelopeText: "For Mom",
   envelopeHint: "Tap to open",
   greetingTitle: "Happy Mother's Day!",
@@ -27,6 +28,10 @@ export const getSettings = () => {
   if (saved) {
     try {
       const parsed = JSON.parse(saved);
+      // Force update if it's the old pixabay link
+      if (parsed.songUrl && parsed.songUrl.includes("pixabay.com")) {
+        parsed.songUrl = DEFAULT_SETTINGS.songUrl;
+      }
       return { 
         ...DEFAULT_SETTINGS, 
         ...parsed, 

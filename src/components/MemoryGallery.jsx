@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import { getSettings } from '../utils/settings';
@@ -27,7 +27,7 @@ const demoMemories = [
   }
 ];
 
-export default function MemoryGallery({ onNext }) {
+export default function MemoryGallery({ onNext, isAutoPlay }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showSecret, setShowSecret] = useState(false);
   const { galleryTitle } = getSettings();
@@ -60,6 +60,29 @@ export default function MemoryGallery({ onNext }) {
     setShowSecret(false);
     setCurrentIndex((prev) => (prev === 0 ? memories.length - 1 : prev - 1));
   };
+
+  useEffect(() => {
+    if (isAutoPlay) {
+      // Step 1: Wait 2s, then show secret
+      const secretTimer = setTimeout(() => {
+        setShowSecret(true);
+      }, 2500);
+
+      // Step 2: Wait another 3.5s, then move to next or finish
+      const nextTimer = setTimeout(() => {
+        if (currentIndex < memories.length - 1) {
+          nextMemory();
+        } else {
+          onNext();
+        }
+      }, 6000);
+
+      return () => {
+        clearTimeout(secretTimer);
+        clearTimeout(nextTimer);
+      };
+    }
+  }, [isAutoPlay, currentIndex, memories.length, onNext]);
 
   return (
     <motion.div 

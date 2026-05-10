@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Volume2, VolumeX, Settings } from 'lucide-react';
+import { Settings, RefreshCcw } from 'lucide-react';
 import FloatingHearts from './components/FloatingHearts';
 import EnvelopeCard from './components/EnvelopeCard';
 import GreetingMessage from './components/GreetingMessage';
@@ -8,6 +8,7 @@ import MemoryGallery from './components/MemoryGallery';
 import ReasonsSection from './components/ReasonsSection';
 import RateTheLove from './components/RateTheLove';
 import AdminPanel from './components/AdminPanel';
+import MusicPlayer from './components/MusicPlayer';
 import { getSettings, applyTheme } from './utils/settings';
 import './App.css';
 
@@ -20,7 +21,15 @@ function App() {
 
   useEffect(() => {
     applyTheme();
-  }, []);
+    
+    // Auto-Play Logic
+    if (settings.isAutoPlay && stage === 'envelope') {
+      const timer = setTimeout(() => {
+        handleOpenEnvelope();
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [stage]);
 
   const toggleMusic = () => {
     if (isPlaying) {
@@ -39,6 +48,10 @@ function App() {
     }
   };
 
+  const restartExperience = () => {
+    window.location.reload();
+  };
+
   return (
     <div className="app-container">
       <FloatingHearts count={stage === 'greeting' ? 25 : 10} />
@@ -50,8 +63,25 @@ function App() {
         loop
       />
 
+      {/* Spotify-Style Player */}
+      <MusicPlayer 
+        isPlaying={isPlaying} 
+        togglePlay={toggleMusic} 
+        currentSong={settings.songUrl.includes("maa_song.mp3") ? "Maa - Taare Zameen Par" : "Mother's Day Special"}
+      />
+
       {/* Controls */}
       <div className="top-controls">
+        <motion.button
+          className="control-btn glass-panel"
+          onClick={restartExperience}
+          whileHover={{ scale: 1.1, rotate: 180 }}
+          whileTap={{ scale: 0.9 }}
+          title="Restart"
+        >
+          <RefreshCcw size={20} />
+        </motion.button>
+
         <motion.button
           className="control-btn glass-panel"
           onClick={() => setShowAdmin(true)}
@@ -60,15 +90,6 @@ function App() {
         >
           <Settings size={24} />
         </motion.button>
-
-        <motion.button
-          className="control-btn glass-panel"
-          onClick={toggleMusic}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          {isPlaying ? <Volume2 size={24} /> : <VolumeX size={24} />}
-        </motion.button>
       </div>
 
       <AnimatePresence>
@@ -76,6 +97,13 @@ function App() {
       </AnimatePresence>
       
       <main className="content-container">
+        {settings.isAutoPlay && (
+          <div className="auto-play-indicator">
+            <div className="pulse-dot"></div>
+            <span>Auto-Play Mode</span>
+          </div>
+        )}
+
         <AnimatePresence mode="wait">
           {stage === 'envelope' && (
             <motion.div key="envelope" exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.5 } }}>
@@ -85,25 +113,25 @@ function App() {
 
           {stage === 'greeting' && (
             <motion.div key="greeting" exit={{ opacity: 0, y: -50, transition: { duration: 0.5 } }}>
-              <GreetingMessage onNext={() => setStage('gallery')} />
+              <GreetingMessage onNext={() => setStage('gallery')} isAutoPlay={settings.isAutoPlay} />
             </motion.div>
           )}
 
           {stage === 'gallery' && (
             <motion.div key="gallery" exit={{ opacity: 0, x: -50, transition: { duration: 0.5 } }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
-              <MemoryGallery onNext={() => setStage('reasons')} />
+              <MemoryGallery onNext={() => setStage('reasons')} isAutoPlay={settings.isAutoPlay} />
             </motion.div>
           )}
 
           {stage === 'reasons' && (
             <motion.div key="reasons" exit={{ opacity: 0, x: -50, transition: { duration: 0.5 } }} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
-              <ReasonsSection onNext={() => setStage('rating')} />
+              <ReasonsSection onNext={() => setStage('rating')} isAutoPlay={settings.isAutoPlay} />
             </motion.div>
           )}
 
           {stage === 'rating' && (
             <motion.div key="rating" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}>
-              <RateTheLove />
+              <RateTheLove isAutoPlay={settings.isAutoPlay} />
             </motion.div>
           )}
         </AnimatePresence>

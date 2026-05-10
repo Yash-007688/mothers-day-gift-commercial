@@ -1,11 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 import { getSettings } from '../utils/settings';
 import './ReasonsSection.css';
 
-export default function ReasonsSection({ onNext }) {
+export default function ReasonsSection({ onNext, isAutoPlay }) {
   const { reasons, reasonsTitle } = getSettings();
+  const [flippedIndices, setFlippedIndices] = useState([]);
+
+  useEffect(() => {
+    if (isAutoPlay) {
+      let index = 0;
+      const interval = setInterval(() => {
+        if (index < reasons.length) {
+          setFlippedIndices(prev => [...prev, index]);
+          index++;
+        } else {
+          clearInterval(interval);
+          setTimeout(onNext, 4000); // Move to rating 4s after last flip
+        }
+      }, 3000); // Flip every 3 seconds
+      return () => clearInterval(interval);
+    }
+  }, [isAutoPlay, reasons.length, onNext]);
 
   return (
     <motion.div 
@@ -21,7 +38,12 @@ export default function ReasonsSection({ onNext }) {
 
       <div className="cards-grid">
         {reasons.map((reason, index) => (
-          <FlipCard key={index} reason={reason} index={index + 1} />
+          <FlipCard 
+            key={index} 
+            reason={reason} 
+            index={index + 1} 
+            forceFlip={flippedIndices.includes(index)} 
+          />
         ))}
       </div>
 
@@ -41,8 +63,12 @@ export default function ReasonsSection({ onNext }) {
   );
 }
 
-function FlipCard({ reason, index }) {
+function FlipCard({ reason, index, forceFlip }) {
   const [isFlipped, setIsFlipped] = useState(false);
+
+  useEffect(() => {
+    if (forceFlip) setIsFlipped(true);
+  }, [forceFlip]);
 
   return (
     <div 

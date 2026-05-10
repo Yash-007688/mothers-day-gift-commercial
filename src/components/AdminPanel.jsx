@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Save, X, Plus, Trash2, Music, Heart, Palette, ListChecks, Layout } from 'lucide-react';
+import { Save, X, Plus, Trash2, Music, Heart, Palette, ListChecks, Layout, Play } from 'lucide-react';
 import { getSettings, saveSettings } from '../utils/settings';
 import './AdminPanel.css';
 
@@ -67,6 +67,22 @@ export default function AdminPanel({ onClose }) {
           <div className="admin-content">
             {activeTab === 'general' && (
               <div className="admin-section">
+                <div className="auto-play-toggle glass-panel" style={{ padding: '16px', marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: '16px', background: 'rgba(255, 107, 129, 0.05)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <Play size={20} color="var(--primary)" />
+                    <div>
+                      <strong style={{ display: 'block' }}>Auto-Play Mode</strong>
+                      <small style={{ color: 'var(--text-muted)' }}>Experience it like a video</small>
+                    </div>
+                  </div>
+                  <input 
+                    type="checkbox" 
+                    className="ios-toggle"
+                    checked={settings.isAutoPlay} 
+                    onChange={(e) => setSettings({ ...settings, isAutoPlay: e.target.checked })} 
+                  />
+                </div>
+
                 <label>Greeting Title</label>
                 <input 
                   type="text" 

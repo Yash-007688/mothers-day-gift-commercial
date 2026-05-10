@@ -1,10 +1,20 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { getSettings } from '../utils/settings';
 import './GreetingMessage.css';
 
-export default function GreetingMessage({ onNext }) {
+export default function GreetingMessage({ onNext, isAutoPlay }) {
   const { greetingTitle, greetingMessage } = getSettings();
+
+  useEffect(() => {
+    if (isAutoPlay) {
+      const timer = setTimeout(() => {
+        onNext();
+      }, 8000); // Wait 8 seconds before moving to gallery
+      return () => clearTimeout(timer);
+    }
+  }, [isAutoPlay, onNext]);
 
   return (
     <motion.div 

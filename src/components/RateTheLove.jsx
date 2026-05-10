@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Star, Heart } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { getSettings } from '../utils/settings';
 import './RateTheLove.css';
 
-export default function RateTheLove() {
+export default function RateTheLove({ isAutoPlay }) {
   const [rated, setRated] = useState(false);
   const { ratingTitle, ratingSubtitle } = getSettings();
+
+  useEffect(() => {
+    if (isAutoPlay) {
+      const timer = setTimeout(() => {
+        handleRating(5);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isAutoPlay]);
 
   const handleRating = (rating) => {
     setRated(true);
@@ -76,6 +85,17 @@ export default function RateTheLove() {
             <h2 className="premium-text">Trick Question!</h2>
             <p className="infinity-text">My love for you is INFINITE! ♾️❤️</p>
             <p className="final-message">Happy Mother's Day, Mom!</p>
+            
+            {isAutoPlay && (
+              <motion.p 
+                style={{ marginTop: '20px', color: 'var(--text-muted)', fontSize: '0.8rem' }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2 }}
+              >
+                Auto-Play Experience Completed ✨
+              </motion.p>
+            )}
           </motion.div>
         )}
       </div>
