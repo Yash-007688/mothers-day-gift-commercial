@@ -67,7 +67,7 @@ function App() {
       <MusicPlayer 
         isPlaying={isPlaying} 
         togglePlay={toggleMusic} 
-        currentSong={settings.songUrl.includes("maa_song.mp3") ? "Maa - Taare Zameen Par" : "Mother's Day Special"}
+        currentSong={settings.songName || "Mother's Day Special"}
       />
 
       {/* Controls */}

@@ -147,12 +147,22 @@ export default function AdminPanel({ onClose }) {
 
             {activeTab === 'music' && (
               <div className="admin-section">
-                <label>Music URL (Direct MP3)</label>
+                <label>Song Name (Display)</label>
+                <input 
+                  type="text" 
+                  placeholder="e.g. Maa - Taare Zameen Par"
+                  value={settings.songName} 
+                  onChange={(e) => setSettings({ ...settings, songName: e.target.value })} 
+                />
+                <label style={{ marginTop: '16px' }}>Music URL (Direct MP3)</label>
                 <input 
                   type="text" 
                   value={settings.songUrl} 
                   onChange={(e) => setSettings({ ...settings, songUrl: e.target.value })} 
                 />
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '8px' }}>
+                  Tip: Use <code>/maa_song.mp3</code> for the default offline song.
+                </p>
               </div>
             )}
 
