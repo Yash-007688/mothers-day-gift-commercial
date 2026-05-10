@@ -24,16 +24,17 @@
 
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
   width: 100%;
   max-width: 1000px;
+  padding: 20px;
 }
 
 .flip-card {
   background-color: transparent;
   width: 100%;
-  height: 250px;
+  aspect-ratio: 1;
   perspective: 1000px;
   cursor: pointer;
 }
@@ -50,22 +51,32 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 40px 30px;
+  clip-path: url(#heartClip);
+  border: none;
+  border-radius: 0;
+}
+
+.flip-card-front {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
 }
 
 .flip-card-front h3 {
-  font-size: 1.8rem;
-  margin-bottom: 12px;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  color: var(--primary);
 }
 
 .tap-hint {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -73,15 +84,15 @@
 
 .flip-card-back {
   transform: rotateY(180deg);
-  background: var(--primary-glow);
-  border: 1px solid var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, #ff8fa3 100%);
+  color: white;
 }
 
 .flip-card-back p {
   font-family: var(--font-serif);
-  font-size: 1.3rem;
-  color: var(--text-main);
-  line-height: 1.5;
+  font-size: 1.1rem;
+  color: white;
+  line-height: 1.4;
   font-weight: 500;
 }
 
@@ -96,18 +107,15 @@
   
   .cards-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  .flip-card {
-    height: 200px;
+    gap: 20px;
+    max-width: 320px;
   }
   
   .flip-card-front h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   
   .flip-card-back p {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 }

@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
+import { getSettings } from '../utils/settings';
 import './MemoryGallery.css';
 
-// Pre-defined sweet captions and secret messages to cycle through
 const defaultCaptions = [
   { caption: 'Thank you for always being there for me.', secret: 'You are the most beautiful person inside and out! 🌸' },
   { caption: 'Your guidance has shaped who I am today.', secret: 'I love you to the moon and back! 🌙❤️' },
@@ -12,7 +12,6 @@ const defaultCaptions = [
   { caption: 'Your smile brightens up my life.', secret: 'No one compares to you, Mom! ✨' }
 ];
 
-// Fallback demo images if the folder is empty
 const demoMemories = [
   {
     id: 1,
@@ -31,10 +30,9 @@ const demoMemories = [
 export default function MemoryGallery({ onNext }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showSecret, setShowSecret] = useState(false);
+  const { galleryTitle } = getSettings();
 
-  // Automatically load images from src/assets/memories/
   const memories = useMemo(() => {
-    // Vite's import.meta.glob auto-imports files matching the pattern
     const imageModules = import.meta.glob('../assets/memories/*.{png,jpg,jpeg,webp}', { eager: true, import: 'default' });
     const imagePaths = Object.values(imageModules);
 
@@ -42,7 +40,6 @@ export default function MemoryGallery({ onNext }) {
       return demoMemories;
     }
 
-    // Map each loaded image to a predefined caption
     return imagePaths.map((imgPath, index) => {
       const captionData = defaultCaptions[index % defaultCaptions.length];
       return {
@@ -72,7 +69,7 @@ export default function MemoryGallery({ onNext }) {
       transition={{ duration: 1 }}
     >
       <div className="gallery-header">
-        <h2 className="premium-text">Our Beautiful Memories</h2>
+        <h2 className="premium-text">{galleryTitle}</h2>
         <Heart className="header-icon" fill="var(--primary)" color="var(--primary)" size={24} />
       </div>
 
@@ -94,7 +91,10 @@ export default function MemoryGallery({ onNext }) {
               <div 
                 className="image-wrapper" 
                 onClick={() => setShowSecret(!showSecret)}
-                style={{ cursor: 'pointer' }}
+                style={{ 
+                  cursor: 'pointer',
+                  '--bg-image': `url(${memories[currentIndex].image})`
+                }}
               >
                 <img 
                   src={memories[currentIndex].image} 

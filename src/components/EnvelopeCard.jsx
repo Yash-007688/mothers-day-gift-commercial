@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
 import { Mail } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { getSettings } from '../utils/settings';
 import './EnvelopeCard.css';
 
 export default function EnvelopeCard({ onOpen }) {
+  const { envelopeText, envelopeHint } = getSettings();
+
   const handleOpen = () => {
-    // Trigger confetti burst
     confetti({
       particleCount: 150,
       spread: 80,
@@ -31,8 +33,8 @@ export default function EnvelopeCard({ onOpen }) {
       >
         <div className="envelope-glow"></div>
         <Mail size={48} className="envelope-icon" color="var(--primary)" />
-        <h2 className="premium-text">For Mom</h2>
-        <p>Tap to open</p>
+        <h2 className="premium-text">{envelopeText}</h2>
+        <p>{envelopeHint}</p>
       </motion.div>
     </motion.div>
   );

@@ -1,18 +1,12 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
+import { getSettings } from '../utils/settings';
 import './ReasonsSection.css';
 
-const reasons = [
-  "You always believe in me, even when I don't.",
-  "Your smile can brighten up my darkest days.",
-  "You cook the best food in the entire world!",
-  "You are my strongest supporter and best friend.",
-  "You taught me how to be kind and compassionate.",
-  "Your hugs have magical healing powers."
-];
-
 export default function ReasonsSection({ onNext }) {
+  const { reasons, reasonsTitle } = getSettings();
+
   return (
     <motion.div 
       className="reasons-container"
@@ -21,7 +15,7 @@ export default function ReasonsSection({ onNext }) {
       transition={{ duration: 1 }}
     >
       <div className="reasons-header">
-        <h2 className="premium-text">Reasons I Love You</h2>
+        <h2 className="premium-text">{reasonsTitle}</h2>
         <Star className="header-icon" fill="var(--primary)" color="var(--primary)" size={24} />
       </div>
 
@@ -36,7 +30,7 @@ export default function ReasonsSection({ onNext }) {
         onClick={onNext}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2 }}
+        transition={{ delay: 1 }}
         style={{ marginTop: '48px', padding: '12px 32px', fontSize: '1.1rem', cursor: 'pointer' }}
         whileHover={{ scale: 1.05, backgroundColor: 'var(--primary-glow)', color: '#fff' }}
         whileTap={{ scale: 0.95 }}

@@ -12,11 +12,17 @@
 .rate-card {
   max-width: 600px;
   width: 100%;
-  padding: 48px;
+  aspect-ratio: 1;
+  padding: 80px 48px;
   text-align: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 24px;
+  clip-path: url(#heartClip);
+  border: none;
+  border-radius: 0;
+  background: white;
 }
 
 .rate-card h2 {
@@ -63,12 +69,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
-  padding: 32px 0;
+  gap: 16px;
+  padding: 16px 0;
 }
 
 .beating-heart {
-  animation: pulse 1s infinite;
+  animation: heartPulse 1s infinite;
+}
+
+@keyframes heartPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 
 .infinity-text {
@@ -76,23 +88,31 @@
   font-size: 1.8rem;
   font-weight: bold;
   color: var(--primary);
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
 .final-message {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: var(--text-main);
   font-style: italic;
+  max-width: 80%;
+  margin: 0 auto;
 }
 
 @media (max-width: 768px) {
   .rate-card {
-    padding: 24px;
-    gap: 16px;
+    padding: 60px 40px;
+    max-width: 400px;
+    gap: 12px;
   }
 
   .rate-card h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+
+  .rate-subtitle {
+    font-size: 1rem;
+    margin-bottom: 12px;
   }
 
   .stars-container {
@@ -100,15 +120,19 @@
   }
 
   .star-button {
-    padding: 12px;
+    padding: 8px;
   }
 
   .star-number {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .infinity-text {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     text-align: center;
+  }
+  
+  .final-message {
+    font-size: 0.9rem;
   }
 }

@@ -1,84 +1,93 @@
 .greeting-container {
   display: flex;
-  justify-content: center;
   align-items: center;
-  min-height: 80vh;
+  justify-content: center;
+  width: 100%;
   padding: 20px;
-  z-index: 10;
-  position: relative;
 }
 
 .greeting-card {
-  max-width: 600px;
   width: 100%;
-  padding: 48px;
-  text-align: center;
+  max-width: 600px;
+  aspect-ratio: 1;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 60px 100px 60px; /* Reduced top, increased bottom padding */
+  text-align: center;
+  clip-path: url(#heartClip);
+  border: none;
+  border-radius: 0;
+  background: white;
 }
 
 .greeting-card h1 {
-  font-size: 3rem;
-  margin: 0;
+  font-size: 2.8rem;
+  margin-bottom: 16px;
 }
 
-.greeting-content {
+.greeting-content p {
   font-size: 1.1rem;
-  line-height: 1.8;
+  line-height: 1.5;
   color: var(--text-main);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  margin-bottom: 12px;
 }
 
 .love-signoff {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 1.3rem;
+  font-weight: 600;
   color: var(--primary);
-  margin-top: 16px;
+  font-size: 1.3rem !important;
+  margin-top: 12px;
 }
 
 .next-button {
-  margin: 0 auto;
-  padding: 12px 24px;
+  margin-top: 24px; /* Reduced margin to keep it away from the bottom tip */
   display: flex;
   align-items: center;
   gap: 12px;
+  padding: 10px 28px;
   font-size: 1rem;
-  font-weight: 500;
-  color: var(--text-main);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
   transition: all 0.3s ease;
+  z-index: 20;
 }
 
 .next-button:hover {
-  color: #fff;
+  background: #ff4757;
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(255, 107, 129, 0.3);
 }
 
 @media (max-width: 768px) {
   .greeting-card {
-    padding: 24px;
-    gap: 20px;
+    padding: 40px 40px 80px 40px; /* Tighter padding for mobile */
+    max-width: 350px;
   }
   
   .greeting-card h1 {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
   }
   
-  .greeting-content {
-    font-size: 1rem;
-    line-height: 1.6;
+  .greeting-content p {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
   }
   
   .love-signoff {
-    font-size: 1.1rem;
+    font-size: 1.1rem !important;
+    margin-top: 8px;
   }
   
   .next-button {
-    width: 100%;
-    justify-content: center;
+    margin-top: 16px;
+    padding: 8px 24px;
+    font-size: 0.9rem;
   }
 }

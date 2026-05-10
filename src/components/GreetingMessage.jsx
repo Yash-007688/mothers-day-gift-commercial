@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { getSettings } from '../utils/settings';
 import './GreetingMessage.css';
 
 export default function GreetingMessage({ onNext }) {
+  const { greetingTitle, greetingMessage } = getSettings();
+
   return (
     <motion.div 
       className="greeting-container"
@@ -17,7 +20,7 @@ export default function GreetingMessage({ onNext }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          Happy Mother's Day!
+          {greetingTitle}
         </motion.h1>
         
         <motion.div 
@@ -26,11 +29,7 @@ export default function GreetingMessage({ onNext }) {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1.5 }}
         >
-          <p>
-            Thank you for your endless love, patience, and support. 
-            You are the heart of our family and my biggest inspiration. 
-            Today is all about celebrating you!
-          </p>
+          <p>{greetingMessage}</p>
           <p className="love-signoff">With all my love,</p>
         </motion.div>
 

@@ -59,6 +59,10 @@ button {
   background-clip: text;
 }
 
+.heart-shape {
+  clip-path: url(#heartClip);
+}
+
 @media (max-width: 768px) {
   body {
     font-size: 14px;

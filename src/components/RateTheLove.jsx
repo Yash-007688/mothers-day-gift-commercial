@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Star, Heart } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { getSettings } from '../utils/settings';
 import './RateTheLove.css';
 
 export default function RateTheLove() {
   const [rated, setRated] = useState(false);
+  const { ratingTitle, ratingSubtitle } = getSettings();
 
   const handleRating = (rating) => {
     setRated(true);
-    // Huge confetti blast
     const duration = 3000;
     const end = Date.now() + duration;
 
@@ -46,8 +47,8 @@ export default function RateTheLove() {
       <div className="rate-card glass-panel">
         {!rated ? (
           <>
-            <h2 className="premium-text">Rate My Love For You</h2>
-            <p className="rate-subtitle">On a scale of 1 to 5, how much do you think I love you?</p>
+            <h2 className="premium-text">{ratingTitle}</h2>
+            <p className="rate-subtitle">{ratingSubtitle}</p>
             
             <div className="stars-container">
               {[1, 2, 3, 4, 5].map((num) => (
